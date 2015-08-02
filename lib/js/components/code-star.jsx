@@ -20,7 +20,9 @@ var CodeStar = React.createClass({
         username2: 'gotno'
       },
 
-      userRepos: []
+      userRepos: [],
+
+      winner: {}
     };
   },
 
@@ -31,9 +33,24 @@ var CodeStar = React.createClass({
       );
     });
 
+    var winnerMsg;
+    if (this.state.winner && this.state.winner.username) {
+      winnerMsg = `The winner is ${this.state.winner.username}!`;
+    } else if (this.state.winner === null) {
+      // tie
+      winnerMsg = 'Both users are tied!';
+    } else {
+      // no winner yet
+      winnerMsg = '';
+    }
+
     return (
       <div>
-        <h1>hi from code star</h1>
+        <h1>Which Github user has more stars?</h1>
+
+        <p>
+          {winnerMsg}
+        </p>
 
         <div>
           User 1
@@ -74,7 +91,8 @@ var CodeStar = React.createClass({
 
   _onStoreChange: function() {
     var newState = _.assign(this.state, {
-      userRepos: UserReposStore.all()
+      userRepos: UserReposStore.all(),
+      winner: UserReposStore.winner()
     });
 
     this.setState(newState);
