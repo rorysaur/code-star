@@ -16,8 +16,8 @@ var CodeStar = React.createClass({
   getInitialState: function() {
     return {
       usersToCompare: {
-        username1: 'rorysaur',
-        username2: 'gotno'
+        username1: '',
+        username2: ''
       },
 
       userRepos: [],
@@ -35,13 +35,25 @@ var CodeStar = React.createClass({
 
     var winnerMsg;
     if (this.state.winner && this.state.winner.username) {
-      winnerMsg = `The winner is ${this.state.winner.username}!`;
+      winnerMsg = (
+        <div>
+          <h2>
+            The winner is <span className="orange">{this.state.winner.username}</span>!
+          </h2>
+        </div>
+      );
     } else if (this.state.winner === null) {
       // tie
-      winnerMsg = 'Both users are tied!';
+      winnerMsg = (
+        <div>
+          Both users are tied!
+        </div>
+      );
     } else {
       // no winner yet
-      winnerMsg = '';
+      winnerMsg = (
+        <div></div>
+      );
     }
 
     return (
@@ -49,23 +61,30 @@ var CodeStar = React.createClass({
         <div className="header">
           <h1>Which Github user has more stars?</h1>
 
-          <p>
+          <div>
             {winnerMsg}
-          </p>
+          </div>
 
           <div>
-            User 1
-            <input type="text"
-              value={this.state.usersToCompare.username1}
-              onChange={this._onChange.bind(this, 'username1')} />
+            <div className="input input-1">
+              1
+              <input type="text"
+                value={this.state.usersToCompare.username1}
+                onChange={this._onChange.bind(this, 'username1')}
+                onKeyDown={this._onKeyDown} />
+            </div>
 
-            User 2
-            <input type="text"
-              value={this.state.usersToCompare.username2}
-              onChange={this._onChange.bind(this, 'username2')} />
+            <div className="input input-2">
+              2
+              <input type="text"
+                value={this.state.usersToCompare.username2}
+                onChange={this._onChange.bind(this, 'username2')}
+                onKeyDown={this._onKeyDown} />
+            </div>
 
-            <div className="compare-button">
-              <button onClick={this._onClick}>Compare stars!</button>
+            <div className="button compare-button"
+                 onClick={this._onClick}>
+              Compare!
             </div>
           </div>
         </div>
@@ -91,6 +110,12 @@ var CodeStar = React.createClass({
   _onClick: function(event) {
     var usernames = _.values(this.state.usersToCompare);
     Actions.compareUsers(usernames);
+  },
+
+  _onKeyDown: function(event) {
+    if (event.keyCode === 13) {
+      this._onClick();
+    }
   },
 
   _onStoreChange: function() {

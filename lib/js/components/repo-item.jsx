@@ -5,7 +5,7 @@ var RepoItem = React.createClass({
     var repo = this.props.repo;
 
     return (
-      <li>{repo.name}: {repo.stars}</li>
+      <li>{repo.name} <span className="star-count">{repo.stars}</span></li>
     );
   }
 });
