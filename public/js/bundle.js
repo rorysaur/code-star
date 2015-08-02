@@ -20483,12 +20483,12 @@
 	        username2: 'gotno'
 	      },
 
-	      userRepos: {}
+	      userRepos: []
 	    };
 	  },
 
 	  render: function render() {
-	    var repoLists = this._repoLists().map(function (repoList, idx) {
+	    var repoLists = this.state.userRepos.map(function (repoList, idx) {
 	      return _react2['default'].createElement(_repoListJsx2['default'], { key: idx, repoList: repoList });
 	    });
 
@@ -20523,22 +20523,6 @@
 	        repoLists
 	      )
 	    );
-	  },
-
-	  _repoLists: function _repoLists() {
-	    var userRepos = this.state.userRepos;
-	    var repoLists = [];
-
-	    for (var user in userRepos) {
-	      if (userRepos.hasOwnProperty(user)) {
-	        repoLists.push({
-	          user: user,
-	          repos: userRepos[user]
-	        });
-	      }
-	    }
-
-	    return repoLists;
 	  },
 
 	  _onChange: function _onChange(fieldName, event) {
@@ -33358,11 +33342,14 @@
 	var CodeStarAPI = {
 	  getRepos: function getRepos(usernames, successCallback, errorCallback) {
 	    _jquery2['default'].when(CodeStarAPI.getReposForUser(usernames[0]), CodeStarAPI.getReposForUser(usernames[1])).done(function (args0, args1) {
-	      var userRepos = {};
+	      var userRepos = usernames.map(function (username, idx) {
+	        return {
+	          username: username,
 
-	      // first element in each `args` array is the response data
-	      userRepos[usernames[0]] = args0[0];
-	      userRepos[usernames[1]] = args1[0];
+	          // first element in each `args` array is the response data
+	          repos: idx === 0 ? args0[0] : args1[0]
+	        };
+	      });
 
 	      successCallback(userRepos);
 	    }).fail(function (jqXHR, textStatus, errorThrown) {
@@ -42621,7 +42608,7 @@
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
-	var _userRepos = {};
+	var _userRepos = [];
 
 	var UserReposStore = _lodash2['default'].assign(_events.EventEmitter.prototype, {
 	  all: function all() {
@@ -42629,14 +42616,10 @@
 	  },
 
 	  cleanUserReposData: function cleanUserReposData(userRepos) {
-	    var cleanedUserRepos = {};
-
-	    for (var user in userRepos) {
-	      if (userRepos.hasOwnProperty(user)) {
-	        var repos = userRepos[user];
-	        cleanedUserRepos[user] = UserReposStore.cleanRepoData(repos);
-	      }
-	    }
+	    var cleanedUserRepos = userRepos.map(function (user) {
+	      user.repos = UserReposStore.cleanRepoData(user.repos);
+	      return user;
+	    });
 
 	    return cleanedUserRepos;
 	  },
@@ -43026,7 +43009,7 @@
 	      _react2['default'].createElement(
 	        'h2',
 	        null,
-	        this.props.repoList.user
+	        this.props.repoList.username
 	      ),
 	      _react2['default'].createElement(
 	        'ul',

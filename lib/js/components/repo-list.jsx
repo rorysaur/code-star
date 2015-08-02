@@ -11,7 +11,7 @@ var RepoList = React.createClass({
 
     return (
       <div>
-        <h2>{this.props.repoList.user}</h2>
+        <h2>{this.props.repoList.username}</h2>
         <ul>
           {repoItems} 
         </ul>

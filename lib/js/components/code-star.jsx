@@ -20,12 +20,12 @@ var CodeStar = React.createClass({
         username2: 'gotno'
       },
 
-      userRepos: {}
+      userRepos: []
     };
   },
 
   render: function() {
-    var repoLists = this._repoLists().map(function(repoList, idx) {
+    var repoLists = this.state.userRepos.map(function(repoList, idx) {
       return (
         <RepoList key={idx} repoList={repoList} />
       );
@@ -54,22 +54,6 @@ var CodeStar = React.createClass({
         </div>
       </div>
     );
-  },
-
-  _repoLists: function() {
-    var userRepos = this.state.userRepos;
-    var repoLists = [];
-
-    for (var user in userRepos) {
-      if (userRepos.hasOwnProperty(user)) {
-        repoLists.push({
-          user: user,
-          repos: userRepos[user]
-        });
-      }
-    }
-
-    return repoLists;
   },
 
   _onChange: function(fieldName, event) {
