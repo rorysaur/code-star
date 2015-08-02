@@ -1,4 +1,4 @@
-# "Code Star"
+# Code Star
 
 ## Features:
 
@@ -7,6 +7,8 @@
 3. Display total stars for each user
 4. Display an average "stars per repo" for each user
 5. Declare a winner
+
+Try it here: [http://code-star.divshot.io/](http://code-star.divshot.io/)
 
 ## How to Use
 1. Clone this repo.
