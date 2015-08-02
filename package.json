@@ -11,7 +11,13 @@
   "devDependencies": {
     "babel-core": "^5.8.20",
     "babel-loader": "^5.3.2",
+    "css-loader": "^0.15.6",
     "jsx-loader": "^0.13.2",
+    "node-bourbon": "^4.2.3",
+    "node-neat": "^1.7.2",
+    "node-sass": "^3.2.0",
+    "sass-loader": "^1.0.3",
+    "style-loader": "^0.12.3",
     "webpack": "^1.10.5"
   },
   "dependencies": {

@@ -11,7 +11,7 @@ var RepoList = React.createClass({
     });
 
     return (
-      <div>
+      <div className="user-repo-list">
         <h2>{repoList.username}</h2>
         <h4>Total Stars: {repoList.totalStars}</h4>
         <h4>Average Stars: {repoList.avgStars}</h4>

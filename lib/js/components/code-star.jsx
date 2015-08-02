@@ -46,27 +46,31 @@ var CodeStar = React.createClass({
 
     return (
       <div>
-        <h1>Which Github user has more stars?</h1>
+        <div className="header">
+          <h1>Which Github user has more stars?</h1>
 
-        <p>
-          {winnerMsg}
-        </p>
+          <p>
+            {winnerMsg}
+          </p>
 
-        <div>
-          User 1
-          <input type="text"
-            value={this.state.usersToCompare.username1}
-            onChange={this._onChange.bind(this, 'username1')} />
+          <div>
+            User 1
+            <input type="text"
+              value={this.state.usersToCompare.username1}
+              onChange={this._onChange.bind(this, 'username1')} />
 
-          User 2
-          <input type="text"
-            value={this.state.usersToCompare.username2}
-            onChange={this._onChange.bind(this, 'username2')} />
+            User 2
+            <input type="text"
+              value={this.state.usersToCompare.username2}
+              onChange={this._onChange.bind(this, 'username2')} />
 
-          <button onClick={this._onClick}>Compare stars!</button>
+            <div className="compare-button">
+              <button onClick={this._onClick}>Compare stars!</button>
+            </div>
+          </div>
         </div>
 
-        <div>
+        <div className="user-repo-lists">
           {repoLists}
         </div>
       </div>
